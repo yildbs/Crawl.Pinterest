@@ -4,39 +4,44 @@ import time
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver import ActionChains
 import requests
+import os
+import conf
 
 driver = webdriver.Chrome('/Users/illo.yoon/Workspace/Python/chromedriver')
 driver.implicitly_wait(3)
+
 # url에 접근한다.
 driver.get('https://www.pinterest.com/')
+driver.implicitly_wait(3)
+time.sleep(5)
 
-
+# 로그인 버튼 찾아서 클릭
 button_login_window = driver.find_element_by_css_selector('#__PWS_ROOT__ > div:nth-child(1) > div > div > div > div:nth-child(2) > div.Jea._he.b8T.gjz.zI7.iyn.Hsu > div.Jea.l7T.zI7.iyn.Hsu > div:nth-child(2) > button')
 button_login_window.click()
 
+# 이메일, 비밀번호 폼 찾기
 input_email = driver.find_element_by_xpath('/html/body/div[1]/div[1]/div/div/div/div[1]/div[2]/div[2]/div/div/div/div/div/div/div/div[4]/form/div[1]/fieldset/span/div/input')
 input_password = driver.find_element_by_xpath('/html/body/div[1]/div[1]/div/div/div/div[1]/div[2]/div[2]/div/div/div/div/div/div/div/div[4]/form/div[2]/fieldset/span/div/input')
 
+# 이메일, 비밀번호 입력하기
 input_email.send_keys(login_info.login_info['id'])
 input_password.send_keys(login_info.login_info['pw'])
 
+# 로그인 버튼 누르기
 button_login = driver.find_element_by_xpath('/html/body/div[1]/div[1]/div/div/div/div[1]/div[2]/div[2]/div/div/div/div/div/div/div/div[4]/form/div[5]/button')
 button_login.click()
 
+# 로그인하는데 시간이 좀 걸려서 넉넉하게 기다린다
 time.sleep(20)
 driver.implicitly_wait(10)
 
+# 검색어 입력하기
 input_search_keyword = driver.find_element_by_css_selector('#searchBoxContainer > div > div > div.ujU.zI7.iyn.Hsu > input[type=text]')
-input_search_keyword.send_keys('hand without ring')
+input_search_keyword.send_keys(conf.search_word)
 input_search_keyword.send_keys(Keys.ENTER)
 
 driver.implicitly_wait(5)
 
-# /html/body/div[1]/div[1]/div[2]/div/div/div[2]/div[2]/div[1]/div/div/div/div[1]/div[2]/div/div/div/div/div[1]/div[1]/a/div/div[1]/div/div/div/div/div/img
-# images = driver.find_elements_by_xpath('/html/body/div[1]/div[1]/div[2]/div/div/div[2]/div[2]/div[1]/div/div/div/div[1]/div[1]/div/div/div/div/div[1]/div[1]/a/div/div[1]/div/div/div/div/div/img')
-
-# LOOP
-import os
 
 imagedir = 'images'
 try:
@@ -44,8 +49,10 @@ try:
 except :
     pass
 
-target_num_images = 10000
+target_num_images = conf.target_num_images
 links_saved = set()
+
+# LOOP
 while True:
     try:
         # get images
@@ -78,11 +85,3 @@ while True:
         pass
     except Exception as e:
         pass
-
-# /html/body/div[1]/div[1]/div[2]/div/div/div[2]/div[2]/div[1]/div/div/div/div[1]/div[1]/div/div/div/div/div[1]/div[1]/a/div/div[1]/div/div/div/div/div/img
-# /html/body/div[1]/div[1]/div[2]/div/div/div[2]/div[2]/div[1]/div/div/div/div[1]/div[2]/div/div/div/div/div[1]/div[1]/a/div/div[1]/div/div/div/div/div/img
-# id가 something 인 element 를 찾음
-# some_tag = driver.find_element_by_id('something')
-
-
-print('hello')

@@ -1,0 +1,5 @@
+# rename this file to login_info.py without ".default"
+login_info = {
+    'id' : 'Type your pinterest email',
+    'pw': 'Type your pw to login',
+}

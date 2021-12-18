@@ -1,2 +1,4 @@
 login_info.py
 images/*
+__pycache__/
+.DS_Store

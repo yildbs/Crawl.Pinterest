@@ -7,7 +7,7 @@ import requests
 import os
 import conf
 
-driver = webdriver.Chrome('/Users/illo.yoon/Workspace/Python/chromedriver')
+driver = webdriver.Chrome(conf.chromedriver_path)
 driver.implicitly_wait(3)
 
 # url에 접근한다.
@@ -41,7 +41,6 @@ input_search_keyword.send_keys(conf.search_word)
 input_search_keyword.send_keys(Keys.ENTER)
 
 driver.implicitly_wait(5)
-
 
 imagedir = 'images'
 try:

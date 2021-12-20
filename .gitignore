@@ -3,3 +3,4 @@ images/*
 __pycache__/
 .DS_Store
 .idea
+*.zip
